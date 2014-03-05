@@ -1,0 +1,65 @@
+Manifest-Version: 1.0
+Service-Component: OSGI-INF/serviceComponents.xml
+Export-Package: org.wso2.carbon.apimgt.usage.publisher;uses:="org.apac
+ he.synapse,org.apache.commons.logging,org.wso2.carbon.utils.multitena
+ ncy,org.wso2.carbon.apimgt.usage.publisher.service,org.wso2.carbon.ap
+ imgt.usage.publisher.dto,org.wso2.carbon.apimgt.usage.publisher.inter
+ nal,org.apache.synapse.mediators,org.apache.synapse.core.axis2,org.ap
+ ache.axis2.context,org.apache.synapse.rest,org.wso2.carbon.context,or
+ g.wso2.carbon.databridge.agent.thrift.exception,org.wso2.carbon.datab
+ ridge.commons.exception,org.wso2.carbon.databridge.agent.thrift.util,
+ org.wso2.carbon.databridge.agent.thrift.lb,org.wso2.carbon.usage.agen
+ t.util,org.wso2.carbon.apimgt.gateway.handlers.security,org.wso2.carb
+ on.usage.agent.beans,org.wso2.carbon.user.core.tenant,org.wso2.carbon
+ .user.core.service,org.wso2.carbon.apimgt.impl.internal,org.wso2.carb
+ on.base,org.wso2.carbon.apimgt.impl";version="1.2.0",org.wso2.carbon.
+ apimgt.usage.publisher.dto;uses:="org.wso2.carbon.apimgt.usage.publis
+ her";version="1.2.0",org.wso2.carbon.apimgt.usage.publisher.service;u
+ ses:="org.apache.axis2.util,org.wso2.carbon.apimgt.impl";version="1.2
+ .0",org.wso2.carbon.apimgt.usage.publisher.internal;uses:="org.wso2.c
+ arbon.apimgt.usage.publisher,org.apache.commons.logging,org.wso2.carb
+ on.databridge.agent.thrift.lb,org.wso2.carbon.apimgt.usage.publisher.
+ service,org.wso2.carbon.apimgt.impl,org.osgi.framework,org.osgi.servi
+ ce.component,org.wso2.carbon.base";version="1.2.0"
+Built-By: uvindra
+Tool: Bnd-1.43.0
+Bundle-Name: org.wso2.carbon.apimgt.usage.publisher
+Created-By: Apache Maven Bundle Plugin
+Bundle-Vendor: WSO2 Inc
+DynamicImport-Package: *
+Build-Jdk: 1.6.0_45
+Bundle-Version: 1.2.0
+Bnd-LastModified: 1386151609003
+Bundle-ManifestVersion: 2
+Bundle-Description: Platform Parent pom hold the properties, plugins w
+ hich are required to build carbon components, carbon features and pro
+ ducts
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Import-Package: javax.servlet;version="[2.6.0,3.0.0)",javax.servlet.ht
+ tp;version="[2.6.0,3.0.0)",javax.servlet.resources;version="[2.6.0,3.
+ 0.0)",org.apache.axis2.context;resolution:=optional;version="[1.6,2)"
+ ,org.apache.axis2.util;resolution:=optional;version="[1.6,2)",org.apa
+ che.commons.logging;resolution:=optional;version="[1.1,2)",org.apache
+ .synapse;resolution:=optional,org.apache.synapse.core.axis2;resolutio
+ n:=optional,org.apache.synapse.mediators;resolution:=optional,org.apa
+ che.synapse.rest;resolution:=optional,org.eclipse.equinox.http.helper
+ ,org.osgi.framework;resolution:=optional;version="[1.7,2)",org.osgi.s
+ ervice.component;resolution:=optional;version="[1.2,2)",org.wso2.carb
+ on.apimgt.gateway.handlers.security;resolution:=optional,org.wso2.car
+ bon.apimgt.impl;resolution:=optional,org.wso2.carbon.apimgt.impl.inte
+ rnal;resolution:=optional,org.wso2.carbon.base;resolution:=optional;v
+ ersion="[1.0,2)",org.wso2.carbon.context;resolution:=optional;version
+ ="[4.2,5)",org.wso2.carbon.databridge.agent.thrift.exception;resoluti
+ on:=optional;version="[4.2,5)",org.wso2.carbon.databridge.agent.thrif
+ t.lb;resolution:=optional;version="[4.2,5)",org.wso2.carbon.databridg
+ e.agent.thrift.util;resolution:=optional;version="[4.2,5)",org.wso2.c
+ arbon.databridge.commons.exception;resolution:=optional;version="[4.2
+ ,5)",org.wso2.carbon.usage.agent.beans;resolution:=optional;version="
+ [2.1,3)",org.wso2.carbon.usage.agent.util;resolution:=optional,org.ws
+ o2.carbon.user.core.service;resolution:=optional;version="[4.2,5)",or
+ g.wso2.carbon.user.core.tenant;resolution:=optional;version="[4.2,5)"
+ ,org.wso2.carbon.utils.multitenancy;resolution:=optional;version="[4.
+ 2,5)"
+Bundle-DocURL: http://wso2.org
+Bundle-SymbolicName: org.wso2.carbon.apimgt.usage.publisher
+

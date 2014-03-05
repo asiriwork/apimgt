@@ -1,0 +1,46 @@
+Manifest-Version: 1.0
+Service-Component: OSGI-INF/serviceComponents.xml
+Export-Package: org.wso2.carbon.apimgt.usage.client;uses:="org.wso2.ca
+ rbon.apimgt.usage.client.dto,org.apache.axiom.om,javax.xml.namespace,
+ javax.naming,org.wso2.carbon.apimgt.api.model,org.wso2.carbon.apimgt.
+ impl,org.apache.axiom.om.impl.builder,org.apache.axiom.om.util,javax.
+ xml.stream,org.wso2.carbon.apimgt.usage.client.billing,javax.sql,org.
+ wso2.carbon.apimgt.api,org.wso2.carbon.apimgt.usage.client.exception,
+ org.wso2.carbon.utils,org.wso2.carbon.bam.presentation.stub";version=
+ "1.2.0",org.wso2.carbon.apimgt.usage.client.billing;uses:="org.apache
+ .axiom.om,org.apache.commons.logging,javax.xml.namespace";version="1.
+ 2.0",org.wso2.carbon.apimgt.usage.client.dto;version="1.2.0",org.wso2
+ .carbon.apimgt.usage.client.exception;version="1.2.0"
+Built-By: uvindra
+Tool: Bnd-1.43.0
+Bundle-Name: org.wso2.carbon.apimgt.usage.client
+Created-By: Apache Maven Bundle Plugin
+Bundle-Vendor: WSO2 Inc
+DynamicImport-Package: *
+Build-Jdk: 1.6.0_45
+Bundle-Version: 1.2.0
+Bnd-LastModified: 1386151610950
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Bundle-Description: Platform Parent pom hold the properties, plugins w
+ hich are required to build carbon components, carbon features and pro
+ ducts
+Import-Package: javax.naming;resolution:=optional,javax.servlet;versio
+ n="[2.6.0,3.0.0)",javax.servlet.http;version="[2.6.0,3.0.0)",javax.se
+ rvlet.resources;version="[2.6.0,3.0.0)",javax.sql;resolution:=optiona
+ l,javax.xml.namespace;resolution:=optional,javax.xml.stream;resolutio
+ n:=optional;version="[1.0,2)",org.apache.axiom.om;resolution:=optiona
+ l;version="[1.2,2)",org.apache.axiom.om.impl.builder;resolution:=opti
+ onal;version="[1.2,2)",org.apache.axiom.om.util;resolution:=optional;
+ version="[1.2,2)",org.apache.commons.logging;resolution:=optional;ver
+ sion="[1.1,2)",org.eclipse.equinox.http.helper,org.osgi.service.compo
+ nent;resolution:=optional;version="[1.2,2)",org.wso2.carbon.apimgt.ap
+ i;resolution:=optional,org.wso2.carbon.apimgt.api.model;resolution:=o
+ ptional,org.wso2.carbon.apimgt.impl;resolution:=optional,org.wso2.car
+ bon.apimgt.usage.client.exception;resolution:=optional;version="[1.2,
+ 2)",org.wso2.carbon.bam.presentation.stub;resolution:=optional;versio
+ n="[4.2,5)",org.wso2.carbon.utils;resolution:=optional;version="[4.2,
+ 5)"
+Bundle-DocURL: http://wso2.org
+Bundle-SymbolicName: org.wso2.carbon.apimgt.usage.client
+

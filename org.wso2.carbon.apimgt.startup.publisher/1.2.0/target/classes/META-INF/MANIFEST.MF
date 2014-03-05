@@ -1,0 +1,56 @@
+Manifest-Version: 1.0
+Export-Package: org.wso2.carbon.apimgt.startup.publisher;uses:="org.ws
+ o2.carbon.registry.core.service,org.apache.commons.logging,org.wso2.c
+ arbon.apimgt.api.model,org.wso2.carbon.apimgt.impl,org.wso2.carbon.co
+ re,javax.xml.namespace,org.wso2.carbon.apimgt.impl.utils,javax.activa
+ tion,org.wso2.carbon.registry.core.exceptions,org.wso2.carbon.apimgt.
+ startup.publisher.internal,org.wso2.carbon.registry.core.session,org.
+ wso2.carbon.registry.core,org.wso2.carbon.apimgt.api,org.wso2.carbon.
+ apimgt.impl.internal,org.wso2.carbon.governance.api.generic.dataobjec
+ ts,org.wso2.carbon.apimgt.impl.dao,javax.cache,org.wso2.carbon.govern
+ ance.api.generic,org.wso2.carbon.governance.api.util",org.wso2.carbon
+ .apimgt.startup.publisher.internal;uses:="org.wso2.carbon.registry.co
+ re.service,org.apache.commons.logging,org.wso2.carbon.apimgt.startup.
+ publisher,org.osgi.framework,org.wso2.carbon.core,org.wso2.carbon.uti
+ ls,org.apache.axis2.context,org.osgi.service.component"
+Service-Component: OSGI-INF/serviceComponents.xml
+Private-Package: org.wso2.carbon.apimgt.startup.publisher.internal
+Built-By: uvindra
+Tool: Bnd-0.0.238
+Bundle-Name: org.wso2.carbon.apimgt.startup.publisher
+Created-By: Apache Maven Bundle Plugin
+Bundle-Vendor: WSO2 Inc
+DynamicImport-Package: *
+Build-Jdk: 1.6.0_45
+Bundle-Version: 1.2.0
+Bnd-LastModified: 1386151630527
+Bundle-ManifestVersion: 2
+Bundle-Description: Platform Parent pom hold the properties, plugins w
+ hich are required to build carbon components, carbon features and pro
+ ducts
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Import-Package: javax.activation;resolution:=optional;version="1.1",ja
+ vax.cache;resolution:=optional;version="1.0",javax.xml.namespace;reso
+ lution:=optional,javax.xml.soap;version="1.0.0",org.apache.axis2.cont
+ ext;resolution:=optional;version="1.6.1.wso2v10",org.apache.commons.l
+ ogging;resolution:=optional;version="1.1",org.osgi.framework;resoluti
+ on:=optional;version="1.7",org.osgi.service.component;resolution:=opt
+ ional;version="1.2",org.wso2.carbon.apimgt.api;resolution:=optional,o
+ rg.wso2.carbon.apimgt.api.model;resolution:=optional,org.wso2.carbon.
+ apimgt.impl;resolution:=optional,org.wso2.carbon.apimgt.impl.dao;reso
+ lution:=optional,org.wso2.carbon.apimgt.impl.internal;resolution:=opt
+ ional,org.wso2.carbon.apimgt.impl.utils;resolution:=optional,org.wso2
+ .carbon.apimgt.startup.publisher;resolution:=optional,org.wso2.carbon
+ .apimgt.startup.publisher.internal;resolution:=optional,org.wso2.carb
+ on.core;version="4.2",org.wso2.carbon.governance.api.generic;resoluti
+ on:=optional;version="4.2",org.wso2.carbon.governance.api.generic.dat
+ aobjects;resolution:=optional;version="4.2",org.wso2.carbon.governanc
+ e.api.util;resolution:=optional;version="4.2",org.wso2.carbon.registr
+ y.core;resolution:=optional;version="1.0",org.wso2.carbon.registry.co
+ re.exceptions;resolution:=optional;version="1.0",org.wso2.carbon.regi
+ stry.core.service;version="1.0.1",org.wso2.carbon.registry.core.sessi
+ on;resolution:=optional;version="1.0",org.wso2.carbon.utils;resolutio
+ n:=optional;version="4.2"
+Bundle-DocURL: http://wso2.org
+Bundle-SymbolicName: org.wso2.carbon.apimgt.startup.publisher
+

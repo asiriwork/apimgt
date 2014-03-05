@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0" localization="OSGI-INF/metatype/metatype">
+    <OCD id="api.mgt.usage.component" name="%api.mgt.usage.component.name" description="%api.mgt.usage.component.description"/>
+    <Designate pid="api.mgt.usage.component">
+        <Object ocdref="api.mgt.usage.component"/>
+    </Designate>
+</metatype:MetaData>

@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Export-Package: org.wso2.carbon.apimgt.keymgt.client;uses:="org.apache
+ .axis2,org.apache.commons.logging,org.apache.axis2.client,org.wso2.ca
+ rbon.authenticator.stub,org.apache.axis2.context,org.wso2.carbon.apim
+ gt.handlers.security.stub,org.wso2.carbon.apimgt.impl.dto.xsd,org.wso
+ 2.carbon.apimgt.keymgt.stub.types.carbon,org.wso2.carbon.apimgt.keymg
+ t.stub.subscriber";version="1.2.0"
+Built-By: uvindra
+Tool: Bnd-1.43.0
+Bundle-Name: WSO2 Carbon - API Key Mgt Client
+Created-By: Apache Maven Bundle Plugin
+Bundle-Vendor: WSO2 Inc
+DynamicImport-Package: *
+Build-Jdk: 1.6.0_45
+Bundle-Version: 1.2.0
+Bnd-LastModified: 1386151611627
+Bundle-ManifestVersion: 2
+Bundle-Description: Key Management Client functionality for API Mgt/St
+ ore solution
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Import-Package: org.apache.axis2;resolution:=optional;version="[1.6,2)
+ ",org.apache.axis2.client;resolution:=optional;version="[1.6,2)",org.
+ apache.axis2.context;resolution:=optional;version="[1.6,2)",org.apach
+ e.commons.logging;version="1.0.4",org.wso2.carbon.apimgt.handlers.sec
+ urity.stub;resolution:=optional;version="[4.2,5)",org.wso2.carbon.api
+ mgt.impl.dto.xsd;resolution:=optional;version="[4.2,5)",org.wso2.carb
+ on.apimgt.keymgt.stub.subscriber;resolution:=optional;version="[4.2,5
+ )",org.wso2.carbon.apimgt.keymgt.stub.types.carbon;resolution:=option
+ al;version="[4.2,5)",org.wso2.carbon.authenticator.stub;resolution:=o
+ ptional;version="[4.2,5)"
+Bundle-DocURL: http://wso2.org
+Bundle-SymbolicName: org.wso2.carbon.apimgt.keymgt.client
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0">
+    <scr:component enabled="true" immediate="true" name="org.wso2.carbon.apimgt.interceptor.valve.internal">
+        <implementation class="org.wso2.carbon.apimgt.interceptor.valve.internal.APIManagerInterceptorComponent"/>
+        <property name="service.pid" value="org.wso2.carbon.apimgt.interceptor.valve.internal"/>
+        <reference name="config.context.service" interface="org.wso2.carbon.utils.ConfigurationContextService" cardinality="1..1" policy="dynamic" bind="setConfigurationContextService" unbind="unsetConfigurationContextService"/>
+        <reference name="registry.service" interface="org.wso2.carbon.registry.core.service.RegistryService" cardinality="1..1" policy="dynamic" bind="setRegistryService" unbind="unsetRegistryService"/>
+    </scr:component>
+</components>

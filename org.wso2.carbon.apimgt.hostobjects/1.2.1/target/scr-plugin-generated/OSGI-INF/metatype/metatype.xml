@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0" localization="OSGI-INF/metatype/metatype">
+    <OCD id="org.wso2.apimgt.hostobjects" name="%org.wso2.apimgt.hostobjects.name" description="%org.wso2.apimgt.hostobjects.description"/>
+    <Designate pid="org.wso2.apimgt.hostobjects">
+        <Object ocdref="org.wso2.apimgt.hostobjects"/>
+    </Designate>
+</metatype:MetaData>

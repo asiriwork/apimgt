@@ -1,0 +1,49 @@
+{
+    "info": {
+        "appSelect": "Selecciona por favor una aplicación antes de suscribirse",
+        "wait": "Espera por favor..." ,
+        "subscription": "Suscripción realizada con exito" ,
+        "subscriptionSuccess": "¡Felicitaciones! Te has suscrito con exito a la API. Vaya por favor a la página 'Mis suscripciones' para revisar su suscripción y generar los Access Key.",
+        "gotoSubsPage": "Ir a Mis Suscripciones",
+        "stayPage": "Permanecer en esta página",
+        "returntoAPIPage": "¿Volver a la página de la API?",
+        "yes": "Sí",
+        "no": "No",
+        "charsLeft": "Caracteres restantes",
+
+
+    },
+    "confirm": {
+        "delete": "Confirme borrado",
+        "deleteMsg": "¿Estás seguro que deseas eliminar la aplicación?",
+        "deleteMsgPostfix": "Esto cancelará todas las suscripciones y las claves existentes asociados con la aplicación.",
+        "unsubscribeMsg": "¿Estás seguro que deseas cancelar la suscripción a "
+
+
+    },
+    "titles":{
+        "save":"Guardar",
+        "cancel":"Cancelar",
+        "production":"Producción",
+        "sandbox":"Sandbox",
+        "hideKeys":" Ocultar Keys",
+        "showKeys":" Mostrar Keys",
+        "regenerate":"Volver a generar"
+    },
+    "resultMsgs":{
+        "showKey":"Las claves están disponibles. Haga clic en el botón 'Mostrar Keys' para visualizarlas."
+
+    },
+    "validationMsgs":{
+        "invalidEmail": "Dirección de correo electrónico no válida",
+        "fieldRequired": "Este campo es obligatorio.",
+        "exceedChars": "El nombre excede límite de caracteres (70)",
+        "illegalChars": "El nombre contiene uno o más caracteres no válidos",
+        "illegalName": "El nombre contiene uno o más caracteres no válidos",
+        "invalid": "No válido",
+        "valid": "Válido",
+        "testUri": "Probar URI",
+        "validating": "Validando.."
+    }
+
+}

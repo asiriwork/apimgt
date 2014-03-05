@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0">
+    <scr:component enabled="true" immediate="true" name="org.wso2.carbon.apimgt.startup.publisher.internal">
+        <implementation class="org.wso2.carbon.apimgt.startup.publisher.internal.APIManagerStartupPublisherComponent"/>
+        <property name="service.pid" value="org.wso2.carbon.apimgt.startup.publisher.internal" private="false"/>
+        <reference name="registry.service" interface="org.wso2.carbon.registry.core.service.RegistryService" cardinality="1..1" policy="dynamic" bind="setRegistryService" unbind="unsetRegistryService" checked="true"/>
+    </scr:component>
+</components>

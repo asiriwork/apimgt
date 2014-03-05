@@ -1,0 +1,50 @@
+Manifest-Version: 1.0
+Export-Package: org.wso2.carbon.apimgt.core.throttle;uses:="org.apache
+ .commons.logging,org.apache.axis2.clustering.state,org.apache.axis2.c
+ lustering,org.apache.axis2.context,org.wso2.carbon.throttle.core,org.
+ wso2.carbon.apimgt.impl.dto",org.wso2.carbon.apimgt.core.authenticate
+ ;uses:="org.apache.commons.logging,org.wso2.carbon.apimgt.api,org.wso
+ 2.carbon.apimgt.impl.internal,org.wso2.carbon.apimgt.impl,org.wso2.ca
+ rbon.apimgt.impl.dao,org.wso2.carbon.apimgt.impl.dto",org.wso2.carbon
+ .apimgt.core.usage;uses:="org.apache.commons.logging,org.wso2.carbon.
+ apimgt.usage.publisher,org.wso2.carbon.apimgt.usage.publisher.dto,org
+ .wso2.carbon.apimgt.impl.dto",org.wso2.carbon.apimgt.core.gateway;use
+ s:="org.wso2.carbon.apimgt.api.model,org.apache.commons.logging,org.w
+ so2.carbon.apimgt.api,org.wso2.carbon.apimgt.impl.dao,javax.cache,org
+ .wso2.carbon.apimgt.impl.dto,org.wso2.carbon.apimgt.impl.utils",org.w
+ so2.carbon.apimgt.core
+Built-By: uvindra
+Tool: Bnd-0.0.238
+Bundle-Name: org.wso2.carbon.apimgt.core
+Created-By: Apache Maven Bundle Plugin
+Bundle-Vendor: WSO2 Inc
+DynamicImport-Package: *
+Build-Jdk: 1.6.0_45
+Bundle-Version: 1.2.0
+Bnd-LastModified: 1386151626635
+Bundle-ManifestVersion: 2
+Bundle-Description: Platform Parent pom hold the properties, plugins w
+ hich are required to build carbon components, carbon features and pro
+ ducts
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Import-Package: javax.cache;resolution:=optional;version="1.0",javax.x
+ ml.soap;version="1.0.0",org.apache.axis2.clustering;resolution:=optio
+ nal;version="1.6.1.wso2v10",org.apache.axis2.clustering.state;resolut
+ ion:=optional;version="1.6.1.wso2v10",org.apache.axis2.context;resolu
+ tion:=optional;version="1.6.1.wso2v10",org.apache.commons.logging;res
+ olution:=optional;version="1.1",org.wso2.carbon.apimgt.api;resolution
+ :=optional,org.wso2.carbon.apimgt.api.model;resolution:=optional,org.
+ wso2.carbon.apimgt.core;resolution:=optional,org.wso2.carbon.apimgt.c
+ ore.authenticate;resolution:=optional,org.wso2.carbon.apimgt.core.gat
+ eway;resolution:=optional,org.wso2.carbon.apimgt.core.throttle;resolu
+ tion:=optional,org.wso2.carbon.apimgt.core.usage;resolution:=optional
+ ,org.wso2.carbon.apimgt.impl,org.wso2.carbon.apimgt.impl.dao,org.wso2
+ .carbon.apimgt.impl.dto,org.wso2.carbon.apimgt.impl.internal,org.wso2
+ .carbon.apimgt.impl.utils,org.wso2.carbon.apimgt.usage.publisher;reso
+ lution:=optional;version="1.2",org.wso2.carbon.apimgt.usage.publisher
+ .dto;resolution:=optional;version="1.2",org.wso2.carbon.core;version=
+ "4.2",org.wso2.carbon.registry.core.service;version="1.0.1",org.wso2.
+ carbon.throttle.core;resolution:=optional;version="4.2"
+Bundle-DocURL: http://wso2.org
+Bundle-SymbolicName: org.wso2.carbon.apimgt.core
+
