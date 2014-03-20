@@ -174,6 +174,175 @@ public class APIUsageStatisticsClient {
         return getAPIUsageTopEntries(new ArrayList<APIUsageDTO>(usageByAPIs.values()), limit);
     }
 
+
+
+
+
+    public List<AppUsageDTO> perAppPerAPIUsage(String subscruberName, String fromDate, String toDate, int limit)
+            throws APIMgtUsageQueryServiceClientException {
+
+        OMElement omElement = this.queryBetweenTwoDays(
+                APIUsageStatisticsClientConstants.API_REQUEST_SUMMARY, fromDate, toDate, null);
+        Collection<perAppAPIUsage> usageData = getAppUsageData(omElement);
+
+        List<String> subscriberApps = getAppsbySubscriber(subscruberName);
+
+
+        Map<String, AppUsageDTO> usagePerAppPerAPI = new TreeMap<String, AppUsageDTO>();
+        for (perAppAPIUsage usage : usageData) {
+            for (String subscriberApp : subscriberApps) {
+                if(subscriberApp.equals(usage.consumerKey)){
+                    String consumerKey = usage.consumerKey;
+                    String api = usage.apiName;
+                    Map<String, APIUsageDTO> apiUsageDTOMap;
+                    AppUsageDTO usageDTO = usagePerAppPerAPI.get(consumerKey);
+                    APIUsageDTO apiUsageDTO;
+                    if (usageDTO != null) {
+
+                        apiUsageDTOMap  = usageDTO.getAPIUsageDTOMap();
+                        apiUsageDTO  = apiUsageDTOMap.get(api);
+                        if(apiUsageDTO != null){
+                            apiUsageDTO.setCount(apiUsageDTO.getCount() + usage.requestCount);
+
+                        }else{
+
+                            apiUsageDTO = new APIUsageDTO();
+                            apiUsageDTO.setApiName(usage.apiName);
+                            apiUsageDTO.setCount(usage.requestCount);
+                            apiUsageDTOMap.put(usage.apiName ,apiUsageDTO);
+                        }
+
+
+                    } else {
+                        usageDTO = new AppUsageDTO();
+                        apiUsageDTO = new APIUsageDTO();
+                        apiUsageDTOMap  = new HashMap<String, APIUsageDTO>() ;
+
+                        usageDTO.setAppName(consumerKey);
+                        apiUsageDTO.setApiName(usage.apiName);
+                        apiUsageDTO.setCount(usage.requestCount);
+                        apiUsageDTOMap.put(usage.apiName ,apiUsageDTO);
+                        usageDTO.setAPIUsageDTOMap(apiUsageDTOMap);
+                        usagePerAppPerAPI.put(consumerKey, usageDTO);
+                    }
+
+                }
+
+
+            }
+        }
+        return new ArrayList<AppUsageDTO>(usagePerAppPerAPI.values());
+    }
+
+    private static class perAppAPIUsage {
+
+        private String apiName;
+        private String apiVersion;
+        private String context;
+        private long requestCount;
+        private String consumerKey;
+
+        public perAppAPIUsage(OMElement row) {
+            apiName = row.getFirstChildWithName(new QName(
+                    APIUsageStatisticsClientConstants.API)).getText();
+            apiVersion = row.getFirstChildWithName(new QName(
+                    APIUsageStatisticsClientConstants.VERSION)).getText();
+            context = row.getFirstChildWithName(new QName(
+                    APIUsageStatisticsClientConstants.CONTEXT)).getText();
+            requestCount = (long) Double.parseDouble(row.getFirstChildWithName(new QName(
+                    APIUsageStatisticsClientConstants.REQUEST)).getText());
+            consumerKey = row.getFirstChildWithName(new QName(
+                    APIUsageStatisticsClientConstants.CONSUMERKEY)).getText();
+
+        }
+    }
+
+
+    private Collection<perAppAPIUsage> getAppUsageData(OMElement data) {
+        List<perAppAPIUsage> usageData = new ArrayList<perAppAPIUsage>();
+        OMElement rowsElement = data.getFirstChildWithName(new QName(
+                APIUsageStatisticsClientConstants.ROWS));
+        Iterator rowIterator = rowsElement.getChildrenWithName(new QName(
+                APIUsageStatisticsClientConstants.ROW));
+        if (rowIterator != null) {
+            while (rowIterator.hasNext()) {
+                OMElement rowElement = (OMElement) rowIterator.next();
+                usageData.add(new perAppAPIUsage(rowElement));
+            }
+        }
+        return usageData;
+    }
+
+    private List<String> getAppsbySubscriber(String subscriberName)throws APIMgtUsageQueryServiceClientException {
+
+        if (dataSource == null) {
+            throw new APIMgtUsageQueryServiceClientException("BAM data source hasn't been initialized. Ensure " +
+                    "that the data source is properly configured in the APIUsageTracker configuration.");
+        }
+
+
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet rs = null;
+        try {
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+            String query;
+
+
+            query = "SELECT  CONSUMER_KEY FROM AM_APPLICATION_KEY_MAPPING  NATURAL JOIN AM_APPLICATION  NATURAL JOIN AM_SUBSCRIBER WHERE USER_ID = '"+subscriberName+"' ";
+
+
+            rs = statement.executeQuery(query);
+
+            int columnCount = rs.getMetaData().getColumnCount();
+            List<String> consumerKeys = new ArrayList<String>();
+            while (rs.next()) {
+
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = rs.getMetaData().getColumnName(i);
+                    String columnValue = rs.getString(columnName);
+                    consumerKeys.add(columnValue);
+                }
+
+            }
+
+
+            return consumerKeys;
+
+        } catch (Exception e) {
+            throw new APIMgtUsageQueryServiceClientException("Error occurred while querying from JDBC database", e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+
+                }
+            }
+        }
+    }
+
+
+
+
+
+
     /**
      * Returns a list of APIVersionUsageDTO objects that contain information related to a
      * particular API of a specified provider, along with the number of API calls processed
