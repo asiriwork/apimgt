@@ -100,6 +100,8 @@
     "prev" : "Prev",
     "next" : "Next",
 
+    "apiName": "API Name",
+    "noOfAPICalls": "Number of API Calls",
 
     "keysPro" : "Keys - Production",
     "keysSand" : "Keys - Sandbox",

@@ -1,0 +1,12 @@
+<%
+jagg.module("statistics", {
+
+    getSubscriberCountByAPIs:function () {
+        return jagg.require(jagg.getModulesDir() + "statistics/usage.jag").getSubscriberCountByAPIs.apply(this, arguments);
+    },getFirstAccessTime:function () {
+        return jagg.require(jagg.getModulesDir() + "statistics/usage.jag").getFirstAccessTime.apply(this, arguments);
+    },getProviderAPIUsage:function () {
+        return jagg.require(jagg.getModulesDir() + "statistics/usage.jag").getProviderAPIUsage.apply(this, arguments);
+    }
+});
+%>

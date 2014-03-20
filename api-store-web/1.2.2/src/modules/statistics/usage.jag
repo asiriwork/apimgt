@@ -1,0 +1,99 @@
+<%
+log = new Log(),
+apiStore = jagg.module("manager").getAPIStoreObj(),
+user = jagg.getUser();
+
+
+function getSubscriberCountByAPIs(providerName) {
+    log.info("Blah Blha");
+    var usage = [];
+    var usageout = [];
+    try {
+        usage = apiStore.getSubscriberCountByAPIs(providerName);
+        if (log.isDebugEnabled()) {
+            log.debug("getSubscriberCountByAPIs for : " + providerName);
+        }
+        if (usage == null) {
+            return {
+                error:true
+            };
+
+        } else {
+            return {
+                error:false,
+                usage:usage
+            };
+        }
+    } catch (e) {
+        log.error(e.message);
+        return {
+            error:e,
+            usage:null
+
+        };
+    }
+}
+
+
+function getFirstAccessTime(providerName, server) {
+    var usage = [];
+    var usageout = [];
+    try {
+        usage = apiStore.getFirstAccessTime(providerName, server);
+        if (log.isDebugEnabled()) {
+            log.debug("getProviderAPIFirstAccessTime for : " + server);
+        }
+        if (usage == null) {
+            return {
+                error:true
+            };
+
+        } else {
+
+            return {
+                error:false,
+                usage:usage
+            };
+        }
+    } catch (e) {
+        log.error(e.message);
+        return {
+            error:e,
+            usage:null
+
+        };
+    }
+}
+
+
+function getProviderAPIUsage(providerName,from,to, server) {
+    var usage = [];
+    var usageout = [];
+    try {
+        usage = apiStore.getProviderAPIUsage(providerName,from,to, server);
+        if (log.isDebugEnabled()) {
+            log.debug("getProviderAPIUsage for : " + server);
+        }
+        if (usage == null) {
+            return {
+                error:true
+            };
+
+        } else {
+
+            return {
+                error:false,
+                usage:usage
+            };
+        }
+    } catch (e) {
+        log.error(e.message);
+        return {
+            error:e,
+            usage:null
+
+        };
+    }
+}
+
+%>

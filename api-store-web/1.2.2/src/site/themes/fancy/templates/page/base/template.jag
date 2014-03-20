@@ -188,7 +188,7 @@ if(data.footer) {
 <script src="<%=jagg.getAbsoluteUrl(jagg.getThemeFile("js/lib/bootstrap/js/bootstrap-typeahead.js"))%>"></script>
 <script src="<%=jagg.getAbsoluteUrl(jagg.getThemeFile("js/lib/jquery.cookie.js"))%>"></script>
 <script src="<%=jagg.getAbsoluteUrl(jagg.getThemeFile("js/lib/jquery.corner.js"))%>"></script>
-<script src="<%=jagg.getAbsoluteUrl(jagg.getThemeFile("js/lib/jPages.js"))%>"></script>
+<!--<script src="<%=jagg.getAbsoluteUrl(jagg.getThemeFile("js/lib/jPages.js"))%>"></script>-->
 </body>
 </html>
 <% }); %>

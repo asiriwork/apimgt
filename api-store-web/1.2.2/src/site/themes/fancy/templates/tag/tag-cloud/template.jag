@@ -4,6 +4,7 @@
     var urlPrefix;
     if(tenant!=null) {urlPrefix="tenant="+tenant;}else{urlPrefix='';}
 %>
+
 <div id="tag-cloud">
     <h4><%=i18n.localize("tags")%></h4>
 

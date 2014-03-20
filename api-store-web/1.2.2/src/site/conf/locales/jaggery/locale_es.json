@@ -89,6 +89,8 @@
     "prev" : "Anterior",
     "next" : "Pr&oacute;ximo",
 
+    "apiName": "Nombre de la API",
+    "noOfAPICalls": "Numero de llamadas API",
 
     "keys" : "Claves",
     "showKeys" : "Mostrar keys",
