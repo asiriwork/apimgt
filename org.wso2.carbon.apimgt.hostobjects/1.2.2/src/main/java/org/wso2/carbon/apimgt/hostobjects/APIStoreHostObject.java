@@ -3047,7 +3047,7 @@ public class APIStoreHostObject extends ScriptableObject {
         if (list != null) {
             it = list.iterator();
         }
-        int i = 0;
+
         if (it != null) {
             // Sort API Usage by Application Name
             Map<String, List<APIUsageDTO>> appAPIUsage = new HashMap<String, List<APIUsageDTO>>();
@@ -3070,6 +3070,7 @@ public class APIStoreHostObject extends ScriptableObject {
                 }
             }
 
+            int i = 0;  // NativeArray index
             // Populate NativeArray with sorted API Usage details
             for (Map.Entry<String, List<APIUsageDTO>> entry : appAPIUsage.entrySet()) {
                 List<APIUsageDTO> dtoList = entry.getValue();
@@ -3119,7 +3120,7 @@ public class APIStoreHostObject extends ScriptableObject {
             return myn;
         }
 
-        List<APIUsageDTO> list = null;
+        //List<APIUsageDTO> list = null;
         if (args == null ||  args.length==0) {
             handleException("Invalid number of parameters.");
         }
@@ -3133,6 +3134,16 @@ public class APIStoreHostObject extends ScriptableObject {
             handleException("Error while invoking APIUsageStatisticsClient for ProviderAPIUsage", e);
         }
         NativeArray myn = new NativeArray(0);
+
+        //Iterator it = null;
+        //if (list != null) {
+        //    it = list.iterator();
+        //}
+
+        //if (it != null) {
+
+        //}
+
 
         return myn;
     }
