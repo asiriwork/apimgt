@@ -178,7 +178,7 @@ public class APIUsageStatisticsClient {
 
 
 
-    public List<AppUsageDTO> perAppPerAPIUsage(String subscruberName, String fromDate, String toDate, int limit)
+    public List<APIUsageDTO> perAppPerAPIUsage(String subscruberName, String fromDate, String toDate, int limit)
             throws APIMgtUsageQueryServiceClientException {
 
         OMElement omElement = this.queryBetweenTwoDays(
@@ -187,51 +187,37 @@ public class APIUsageStatisticsClient {
 
         List<String> subscriberApps = getAppsbySubscriber(subscruberName);
 
-
-        Map<String, AppUsageDTO> usagePerAppPerAPI = new TreeMap<String, AppUsageDTO>();
+        List<APIUsageDTO>  perAppUsageList  = new ArrayList<APIUsageDTO>();
+        APIUsageDTO apiUsageDTO;
         for (perAppAPIUsage usage : usageData) {
             for (String subscriberApp : subscriberApps) {
                 if(subscriberApp.equals(usage.consumerKey)){
                     String consumerKey = usage.consumerKey;
                     String api = usage.apiName;
-                    Map<String, APIUsageDTO> apiUsageDTOMap;
-                    AppUsageDTO usageDTO = usagePerAppPerAPI.get(consumerKey);
-                    APIUsageDTO apiUsageDTO;
-                    if (usageDTO != null) {
-
-                        apiUsageDTOMap  = usageDTO.getAPIUsageDTOMap();
-                        apiUsageDTO  = apiUsageDTOMap.get(api);
-                        if(apiUsageDTO != null){
-                            apiUsageDTO.setCount(apiUsageDTO.getCount() + usage.requestCount);
-
-                        }else{
-
-                            apiUsageDTO = new APIUsageDTO();
-                            apiUsageDTO.setApiName(usage.apiName);
-                            apiUsageDTO.setCount(usage.requestCount);
-                            apiUsageDTOMap.put(usage.apiName ,apiUsageDTO);
+                    Boolean count = false;
+                    for(APIUsageDTO usageDTO : perAppUsageList){
+                        if(usageDTO.getappName().equals(consumerKey) && usageDTO.getApiName().equals(api)){
+                            usageDTO.setCount(usageDTO.getCount()+usage.requestCount);
+                            count = true;
+                            break;
                         }
 
-
-                    } else {
-                        usageDTO = new AppUsageDTO();
-                        apiUsageDTO = new APIUsageDTO();
-                        apiUsageDTOMap  = new HashMap<String, APIUsageDTO>() ;
-
-                        usageDTO.setAppName(consumerKey);
-                        apiUsageDTO.setApiName(usage.apiName);
-                        apiUsageDTO.setCount(usage.requestCount);
-                        apiUsageDTOMap.put(usage.apiName ,apiUsageDTO);
-                        usageDTO.setAPIUsageDTOMap(apiUsageDTOMap);
-                        usagePerAppPerAPI.put(consumerKey, usageDTO);
                     }
+                    if(!count){
+                        apiUsageDTO = new APIUsageDTO();
+                        apiUsageDTO.setApiName(api);
+                        apiUsageDTO.setappName(consumerKey);
+                        apiUsageDTO.setCount(usage.requestCount);
+                        perAppUsageList.add(apiUsageDTO);
+                    }
+
 
                 }
 
 
             }
         }
-        return new ArrayList<AppUsageDTO>(usagePerAppPerAPI.values());
+        return perAppUsageList;
     }
 
     private static class perAppAPIUsage {
