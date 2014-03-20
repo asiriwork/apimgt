@@ -19,17 +19,26 @@
 package org.wso2.carbon.apimgt.usage.client.dto;
 
 public class APIUsageDTO {
-    
+
+    private String appName;
     private String apiName;
     private long count;
 
-    public String getApiName() {
-        return apiName;
-    }
+
+
+
+    public String getappName() {return appName; }
+
+    public void setappName(String appName) { this.appName = appName;}
+
+
+    public String getApiName() {return apiName; }
 
     public void setApiName(String apiName) {
         this.apiName = apiName;
     }
+
+
 
     public long getCount() {
         return count;
@@ -38,4 +47,5 @@ public class APIUsageDTO {
     public void setCount(long count) {
         this.count = count;
     }
+
 }
