@@ -22,6 +22,10 @@ public final class APIUsageStatisticsClientConstants {
 
     public static final String API_VERSION_SERVICE_TIME_SUMMARY = "API_RESPONSE_SUMMARY";
 
+    public static final String API_REQUEST_SUMMARY = "API_REQUEST_SUMMARY";
+
+    public static final String CONSUMERKEY = "CONSUMERKEY";
+
     public static final String API_VERSION_SERVICE_TIME_SUMMARY_INDEX = "APIVersionServiceTimeSummaryIndex";
 
     public static final String API_Resource_Path_USAGE_SUMMARY = "API_Resource_USAGE_SUMMARY";
@@ -40,10 +44,6 @@ public final class APIUsageStatisticsClientConstants {
 
     public static final String KEY_USAGE_SUMMARY = "API_REQUEST_SUMMARY";
 
-    public static final String API_REQUEST_SUMMARY = "API_REQUEST_SUMMARY";
-
-
-
     public static final String KEY_USAGE_MONTH_SUMMARY = "API_REQUEST_MONTHLY_SUMMARY";
 
     public static final String MONTH= "month";
@@ -59,8 +59,6 @@ public final class APIUsageStatisticsClientConstants {
     public static final String ROW = "row";
 
     public static final String REQUEST = "total_request_count";
-
-    public static final String CONSUMERKEY = "CONSUMERKEY";
 
     public static final String API = "api";
 
@@ -92,6 +90,8 @@ public final class APIUsageStatisticsClientConstants {
 
     public static final String TIME= "time";
 
+    public static final String DESTINATION= "destination";
+
     public static final int DEFAULT_RESULTS_LIMIT = 10;
 
     public static final String ALL_PROVIDERS = "__all_providers__";
@@ -105,5 +105,7 @@ public final class APIUsageStatisticsClientConstants {
     public static final String API_USAGE_JDBC_UserName =  API_USAGE_TRACKING + "JDBCUserName";
 
     public static final String API_USAGE_JDBC_Password =  API_USAGE_TRACKING + "JDBCPassword";
+
+    public static final String API_USAGEBY_DESTINATION_SUMMARY = "API_DESTINATION_SUMMARY";
 
 }
