@@ -185,25 +185,32 @@ public class APIUsageStatisticsClient {
                 APIUsageStatisticsClientConstants.API_REQUEST_SUMMARY, fromDate, toDate, null);
         Collection<perAppAPIUsage> usageData = getAppUsageData(omElement);
 
+
+
         List<String> subscriberApps = getAppsbySubscriber(subscruberName);
 
         List<APIUsageDTO>  perAppUsageList  = new ArrayList<APIUsageDTO>();
         APIUsageDTO apiUsageDTO;
         for (perAppAPIUsage usage : usageData) {
             for (String subscriberApp : subscriberApps) {
+                System.out.println("sdfsdfsdlfkjslfslkfdd " +usage.consumerKey);
                 if(subscriberApp.equals(usage.consumerKey)){
                     String consumerKey = usage.consumerKey;
                     String api = usage.apiName;
+                    System.out.println("INSIDE IFFFFFFFFFFFFFFFFFFFFFFFF " +usage.consumerKey);
                     Boolean count = false;
                     for(APIUsageDTO usageDTO : perAppUsageList){
                         if(usageDTO.getappName().equals(consumerKey) && usageDTO.getApiName().equals(api)){
                             usageDTO.setCount(usageDTO.getCount()+usage.requestCount);
+                            System.out.println("INSIDE IFFFFFFFFFFFFFFFFFFFFFFFF " +usage.consumerKey);
                             count = true;
                             break;
                         }
 
                     }
                     if(!count){
+
+
                         apiUsageDTO = new APIUsageDTO();
                         apiUsageDTO.setApiName(api);
                         apiUsageDTO.setappName(consumerKey);
@@ -219,6 +226,7 @@ public class APIUsageStatisticsClient {
         }
         return perAppUsageList;
     }
+
 
     private static class perAppAPIUsage {
 
