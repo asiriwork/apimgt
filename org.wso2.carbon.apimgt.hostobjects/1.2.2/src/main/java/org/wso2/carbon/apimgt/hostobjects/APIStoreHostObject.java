@@ -51,6 +51,7 @@ import org.wso2.carbon.apimgt.keymgt.client.SubscriberKeyMgtClient;
 import org.wso2.carbon.apimgt.keymgt.stub.types.carbon.ApplicationKeysDTO;
 import org.wso2.carbon.apimgt.usage.client.APIUsageStatisticsClient;
 import org.wso2.carbon.apimgt.usage.client.dto.APIVersionUserUsageDTO;
+import org.wso2.carbon.apimgt.usage.client.dto.APIUsageDTO;
 import org.wso2.carbon.apimgt.usage.client.exception.APIMgtUsageQueryServiceClientException;
 import org.wso2.carbon.authenticator.stub.AuthenticationAdminStub;
 import org.wso2.carbon.base.MultitenantConstants;
@@ -73,6 +74,7 @@ import org.wso2.carbon.identity.user.registration.stub.dto.UserDTO;
 import org.wso2.carbon.identity.user.registration.stub.dto.UserFieldDTO;
 import org.wso2.carbon.utils.multitenancy.MultitenantUtils;
 
+import java.lang.String;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -80,6 +82,11 @@ import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class APIStoreHostObject extends ScriptableObject {
@@ -2982,6 +2989,154 @@ public class APIStoreHostObject extends ScriptableObject {
         }
         return false;
     }
+
+    public static NativeArray jsFunction_getFirstAccessTime(Context cx, Scriptable thisObj,
+                                                            Object[] args, Function funObj)
+            throws APIManagementException {
+
+        if(!HostObjectUtils.checkDataPublishingEnabled()){
+            NativeArray myn = new NativeArray(0);
+            return myn;
+        }
+
+        List<String> list = null;
+        if (args.length == 0) {
+            handleException("Invalid number of parameters.");
+        }
+        String subscriberName = (String) args[0];
+        try {
+            APIUsageStatisticsClient client = new APIUsageStatisticsClient(((APIStoreHostObject) thisObj).getUsername());
+            list = client.getFirstAccessTime(subscriberName,1);
+        } catch (APIMgtUsageQueryServiceClientException e) {
+            log.error("Error while invoking APIUsageStatisticsClient for StoreAPIUsage", e);
+        }
+        NativeArray myn = new NativeArray(0);
+        NativeObject row = new NativeObject();
+        row.put("year",row,list.get(0).toString());
+        row.put("month",row,list.get(1).toString());
+        row.put("day",row,list.get(2).toString());
+        myn.put(0,myn,row);
+        return myn;
+    }
+
+
+    public static NativeArray jsFunction_getProviderAPIUsage(Context cx, Scriptable thisObj,
+                                                             Object[] args, Function funObj)
+            throws APIManagementException {
+
+        if (!HostObjectUtils.checkDataPublishingEnabled()) {
+            NativeArray myn = new NativeArray(0);
+            return myn;
+        }
+
+        List<APIUsageDTO> list = null;
+        if (args == null ||  args.length==0) {
+            handleException("Invalid number of parameters.");
+        }
+        String providerName = (String) args[0];
+        String fromDate = (String) args[1];
+        String toDate = (String) args[2];
+        try {
+            APIUsageStatisticsClient client = new APIUsageStatisticsClient(((APIStoreHostObject) thisObj).getUsername());
+            list = client.getUsageByAPIs(providerName, fromDate, toDate, 10);
+        } catch (APIMgtUsageQueryServiceClientException e) {
+            handleException("Error while invoking APIUsageStatisticsClient for ProviderAPIUsage", e);
+        }
+        NativeArray myn = new NativeArray(0);
+        Iterator it = null;
+        if (list != null) {
+            it = list.iterator();
+        }
+        int i = 0;
+        if (it != null) {
+            // Sort API Usage by Application Name
+            Map<String, List<APIUsageDTO>> appAPIUsage = new HashMap<String, List<APIUsageDTO>>();
+
+            while (it.hasNext()) {
+                APIUsageDTO apiUsage = (APIUsageDTO) it.next();
+
+                // TODO: Need to put the proper Application name
+                String appName = "DefaultApplication";
+
+                // Application already encountered
+                if (appAPIUsage.containsKey(appName)) {
+                    List<APIUsageDTO> apiUsages = appAPIUsage.get(appName);
+                    apiUsages.add(apiUsage);
+                }
+                else {
+                    List<APIUsageDTO> apiUsages = new ArrayList<APIUsageDTO>();
+                    appAPIUsage.put(appName, apiUsages);
+                    apiUsages.add(apiUsage);
+                }
+            }
+
+            // Populate NativeArray with sorted API Usage details
+            for (Map.Entry<String, List<APIUsageDTO>> entry : appAPIUsage.entrySet()) {
+                List<APIUsageDTO> dtoList = entry.getValue();
+
+                boolean hasFoundFirstRow = false;
+
+                // Ensure Application Name does not get repeated past first row by entering a
+                // 'space' in the subsequent rows. So it will look like this when represented in tabular view,
+                // =====================================================
+                // || Application Name || API Name      || Call count ||
+                // =====================================================
+                // |    Social App      | Twitter API    |      2      |
+                // -----------------------------------------------------
+                // |                    | Facebook API   |      1      |
+                // -----------------------------------------------------
+                // |    News App        | Newsweek API   |      7      |
+                // -----------------------------------------------------
+                for (APIUsageDTO usage : dtoList) {
+                    NativeObject row = new NativeObject();
+
+                    if (!hasFoundFirstRow) { // First entry in List
+                        row.put("appName", row, entry.getKey());
+                        hasFoundFirstRow = true;
+                    }
+                    else {  // Not first entry in List
+                        row.put("appName", row, " "); // Add blank
+                    }
+
+                    row.put("apiName", row, usage.getApiName());
+                    row.put("count", row, usage.getCount());
+
+                    myn.put(i, myn, row);
+                    i++;
+                }
+            }
+        }
+        return myn;
+    }
+
+
+    public static NativeArray jsFunction_getPerAppSubscribers(Context cx, Scriptable thisObj,
+                                                             Object[] args, Function funObj)
+            throws APIManagementException {
+
+        if (!HostObjectUtils.checkDataPublishingEnabled()) {
+            NativeArray myn = new NativeArray(0);
+            return myn;
+        }
+
+        List<APIUsageDTO> list = null;
+        if (args == null ||  args.length==0) {
+            handleException("Invalid number of parameters.");
+        }
+        String providerName = (String) args[0];
+        String fromDate = (String) args[1];
+        String toDate = (String) args[2];
+        try {
+            APIUsageStatisticsClient client = new APIUsageStatisticsClient(((APIStoreHostObject) thisObj).getUsername());
+            //list = client.getUsageByAPIs(providerName, fromDate, toDate, 10);
+        } catch (APIMgtUsageQueryServiceClientException e) {
+            handleException("Error while invoking APIUsageStatisticsClient for ProviderAPIUsage", e);
+        }
+        NativeArray myn = new NativeArray(0);
+
+        return myn;
+    }
+
 
     private static UserFieldDTO[] getOrderedUserFieldDTO() {
         UserRegistrationAdminServiceStub stub;
