@@ -62,6 +62,7 @@ public class APIUsageStatisticsClient {
     private static PaymentPlan paymentPlan;
     private static final String API_USAGE_TRACKING = "APIUsageTracking.";
     private static final String DATA_SOURCE_NAME = API_USAGE_TRACKING + "DataSourceName";
+    private static Map<String ,String> subscriberAppsMap = new HashMap<String, String>();
    /* private static String text = "    <PaymentPlan name=\"platinam\">    <parameter name=\"call\">  " +
             "      <range0><start>0</start><end>5</end><value>0.0</value></range0>      " +
             "  <range1><start>5</start><end>10</end><value>2.0</value></range1>   " +
@@ -177,58 +178,46 @@ public class APIUsageStatisticsClient {
 
 
 
-
     public List<APIUsageDTO> perAppPerAPIUsage(String subscruberName, String fromDate, String toDate, int limit)
             throws APIMgtUsageQueryServiceClientException {
 
         OMElement omElement = this.queryBetweenTwoDays(
                 APIUsageStatisticsClientConstants.API_REQUEST_SUMMARY, fromDate, toDate, null);
-        Collection<perAppAPIUsage> usageData = getAppUsageData(omElement);
-
-
+        Collection<APIUsage> usageData = getUsageData(omElement);
 
         List<String> subscriberApps = getAppsbySubscriber(subscruberName);
 
         List<APIUsageDTO>  perAppUsageList  = new ArrayList<APIUsageDTO>();
         APIUsageDTO apiUsageDTO;
-        for (perAppAPIUsage usage : usageData) {
+        for (APIUsage usage : usageData) {
             for (String subscriberApp : subscriberApps) {
-                System.out.println("sdfsdfsdlfkjslfslkfdd " +usage.consumerKey);
                 if(subscriberApp.equals(usage.consumerKey)){
                     String consumerKey = usage.consumerKey;
                     String api = usage.apiName;
-                    System.out.println("INSIDE IFFFFFFFFFFFFFFFFFFFFFFFF " +usage.consumerKey);
                     Boolean count = false;
                     for(APIUsageDTO usageDTO : perAppUsageList){
-                        if(usageDTO.getappName().equals(consumerKey) && usageDTO.getApiName().equals(api)){
+                        if(usageDTO.getconsumerKey().equals(consumerKey) && usageDTO.getApiName().equals(api)){
                             usageDTO.setCount(usageDTO.getCount()+usage.requestCount);
-                            System.out.println("INSIDE IFFFFFFFFFFFFFFFFFFFFFFFF " +usage.consumerKey);
                             count = true;
                             break;
                         }
-
                     }
                     if(!count){
-
-
                         apiUsageDTO = new APIUsageDTO();
                         apiUsageDTO.setApiName(api);
-                        apiUsageDTO.setappName(consumerKey);
+                        apiUsageDTO.setappName(subscriberAppsMap.get(consumerKey));
+                        apiUsageDTO.setconsumerKey(consumerKey);
                         apiUsageDTO.setCount(usage.requestCount);
                         perAppUsageList.add(apiUsageDTO);
                     }
-
-
                 }
-
-
             }
         }
-        return perAppUsageList;
+        return getAPIUsageTopEntries(perAppUsageList, limit);
     }
 
 
-    private static class perAppAPIUsage {
+    private static class APIUsage {
 
         private String apiName;
         private String apiVersion;
@@ -236,7 +225,7 @@ public class APIUsageStatisticsClient {
         private long requestCount;
         private String consumerKey;
 
-        public perAppAPIUsage(OMElement row) {
+        public APIUsage(OMElement row) {
             apiName = row.getFirstChildWithName(new QName(
                     APIUsageStatisticsClientConstants.API)).getText();
             apiVersion = row.getFirstChildWithName(new QName(
@@ -252,40 +241,24 @@ public class APIUsageStatisticsClient {
     }
 
 
-    private Collection<perAppAPIUsage> getAppUsageData(OMElement data) {
-        List<perAppAPIUsage> usageData = new ArrayList<perAppAPIUsage>();
-        OMElement rowsElement = data.getFirstChildWithName(new QName(
-                APIUsageStatisticsClientConstants.ROWS));
-        Iterator rowIterator = rowsElement.getChildrenWithName(new QName(
-                APIUsageStatisticsClientConstants.ROW));
-        if (rowIterator != null) {
-            while (rowIterator.hasNext()) {
-                OMElement rowElement = (OMElement) rowIterator.next();
-                usageData.add(new perAppAPIUsage(rowElement));
-            }
-        }
-        return usageData;
-    }
+
 
     private List<String> getAppsbySubscriber(String subscriberName)throws APIMgtUsageQueryServiceClientException {
 
         if (dataSource == null) {
-            throw new APIMgtUsageQueryServiceClientException("BAM data source hasn't been initialized. Ensure " +
-                    "that the data source is properly configured in the APIUsageTracker configuration.");
+            throw new APIMgtUsageQueryServiceClientException("ERROR FOR APIM_AM DB.");
         }
-
-
 
         Connection connection = null;
         Statement statement = null;
         ResultSet rs = null;
         try {
-            connection = dataSource.getConnection();
+            connection = APIMgtDBUtil.getConnection();
             statement = connection.createStatement();
             String query;
 
 
-            query = "SELECT  CONSUMER_KEY FROM AM_APPLICATION_KEY_MAPPING  NATURAL JOIN AM_APPLICATION  NATURAL JOIN AM_SUBSCRIBER WHERE USER_ID = '"+subscriberName+"' ";
+            query = "SELECT  CONSUMER_KEY,NAME FROM AM_APPLICATION_KEY_MAPPING  NATURAL JOIN AM_APPLICATION  NATURAL JOIN AM_SUBSCRIBER WHERE USER_ID = '"+subscriberName+"' ";
 
 
             rs = statement.executeQuery(query);
@@ -293,17 +266,19 @@ public class APIUsageStatisticsClient {
             int columnCount = rs.getMetaData().getColumnCount();
             List<String> consumerKeys = new ArrayList<String>();
             while (rs.next()) {
-
+                String[] appDetail = new String[2];
                 for (int i = 1; i <= columnCount; i++) {
                     String columnName = rs.getMetaData().getColumnName(i);
                     String columnValue = rs.getString(columnName);
-                    consumerKeys.add(columnValue);
+                    appDetail[i-1] = columnValue;
+                    if(i==1){
+                        consumerKeys.add(columnValue);
+                    }
                 }
-
+                subscriberAppsMap.put(appDetail[0], appDetail[1]);
             }
-
-
             return consumerKeys;
+
 
         } catch (Exception e) {
             throw new APIMgtUsageQueryServiceClientException("Error occurred while querying from JDBC database", e);
@@ -331,6 +306,7 @@ public class APIUsageStatisticsClient {
             }
         }
     }
+
 
 
 
