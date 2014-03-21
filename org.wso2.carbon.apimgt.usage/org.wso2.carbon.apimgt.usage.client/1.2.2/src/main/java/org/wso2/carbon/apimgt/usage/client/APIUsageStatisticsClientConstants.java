@@ -24,7 +24,7 @@ public final class APIUsageStatisticsClientConstants {
 
     public static final String API_REQUEST_SUMMARY = "API_REQUEST_SUMMARY";
 
-    public static final String CONSUMERKEY = "CONSUMERKEY";
+    public static final String CONSUMERKEY = "consumerkey";
 
     public static final String API_VERSION_SERVICE_TIME_SUMMARY_INDEX = "APIVersionServiceTimeSummaryIndex";
 

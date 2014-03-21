@@ -246,10 +246,6 @@ public class APIUsageStatisticsClient {
 
     private List<String> getAppsbySubscriber(String subscriberName)throws APIMgtUsageQueryServiceClientException {
 
-        if (dataSource == null) {
-            throw new APIMgtUsageQueryServiceClientException("ERROR FOR APIM_AM DB.");
-        }
-
         Connection connection = null;
         Statement statement = null;
         ResultSet rs = null;
