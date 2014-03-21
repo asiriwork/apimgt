@@ -202,6 +202,7 @@ public class APIUsageStatisticsClient {
                             break;
                         }
                     }
+
                     if(!count){
                         apiUsageDTO = new APIUsageDTO();
                         apiUsageDTO.setApiName(api);
@@ -257,9 +258,7 @@ public class APIUsageStatisticsClient {
             statement = connection.createStatement();
             String query;
 
-
             query = "SELECT  CONSUMER_KEY,NAME FROM AM_APPLICATION_KEY_MAPPING  NATURAL JOIN AM_APPLICATION  NATURAL JOIN AM_SUBSCRIBER WHERE USER_ID = '"+subscriberName+"' ";
-
 
             rs = statement.executeQuery(query);
 
